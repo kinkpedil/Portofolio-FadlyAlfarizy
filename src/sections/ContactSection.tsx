@@ -1,5 +1,6 @@
 import { ArrowUpRight, Check, Copy, Instagram, Youtube, type LucideIcon } from 'lucide-react';
 import { useState, type CSSProperties, type SVGProps } from 'react';
+import ContactForm, { WEB3FORMS_ACCESS_KEY } from '../components/ContactForm';
 import FadeIn from '../components/FadeIn';
 import { useLang } from '../i18n';
 
@@ -155,6 +156,18 @@ export default function ContactSection() {
           </FadeIn>
         ))}
       </ul>
+
+      {WEB3FORMS_ACCESS_KEY && (
+        <FadeIn className="mx-auto mt-16 w-full max-w-3xl sm:mt-20">
+          <h3
+            className="mb-8 text-center font-black uppercase leading-none tracking-tight text-[#0C0C0C]"
+            style={{ fontSize: 'clamp(1.5rem, 4vw, 3rem)' }}
+          >
+            {t.contact.form.heading}
+          </h3>
+          <ContactForm />
+        </FadeIn>
+      )}
 
       <footer className="mx-auto mt-auto flex w-full max-w-5xl items-center justify-between pt-20 text-xs font-light uppercase tracking-widest text-[#0C0C0C]/60 sm:text-sm">
         <span>© {new Date().getFullYear()} Fadly Alfarizy</span>

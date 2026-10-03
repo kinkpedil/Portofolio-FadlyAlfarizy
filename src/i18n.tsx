@@ -30,6 +30,16 @@ type Dictionary = {
     copied: string;
     copyLabel: (name: string, handle: string) => string;
     backToTop: string;
+    form: {
+      heading: string;
+      name: string;
+      email: string;
+      message: string;
+      send: string;
+      sending: string;
+      success: string;
+      error: string;
+    };
   };
   polygrip: {
     back: string;
@@ -108,6 +118,16 @@ const en: Dictionary = {
     copied: 'Copied!',
     copyLabel: (name, handle) => `Copy ${name} username ${handle}`,
     backToTop: 'Back to top ↑',
+    form: {
+      heading: 'Or send me a message',
+      name: 'Your name',
+      email: 'Your email (so I can reply)',
+      message: 'Your message',
+      send: 'Send Message',
+      sending: 'Sending…',
+      success: "Thanks! Your message is on its way. I'll get back to you soon.",
+      error: 'Something went wrong and the message was not sent. Please try again, or reach me on Instagram or Discord.',
+    },
   },
   polygrip: {
     back: '← Back to portfolio',
@@ -203,6 +223,16 @@ const id: Dictionary = {
     copied: 'Tersalin!',
     copyLabel: (name, handle) => `Salin username ${name} ${handle}`,
     backToTop: 'Kembali ke atas ↑',
+    form: {
+      heading: 'Atau kirim pesan langsung',
+      name: 'Nama kamu',
+      email: 'Email kamu (untuk aku balas)',
+      message: 'Pesan kamu',
+      send: 'Kirim Pesan',
+      sending: 'Mengirim…',
+      success: 'Terima kasih! Pesanmu sudah terkirim. Aku akan segera membalas.',
+      error: 'Ada masalah dan pesan belum terkirim. Coba lagi, atau hubungi aku lewat Instagram atau Discord.',
+    },
   },
   polygrip: {
     back: '← Kembali ke portofolio',

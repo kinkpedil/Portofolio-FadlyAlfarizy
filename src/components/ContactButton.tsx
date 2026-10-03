@@ -1,4 +1,16 @@
+import type { CSSProperties } from 'react';
 import { useLang } from '../i18n';
+
+/** Shared look for the gradient pill, also used by the contact form's submit button. */
+export const GRADIENT_PILL_CLASS =
+  'inline-block whitespace-nowrap rounded-full px-8 py-3 text-xs font-medium uppercase tracking-widest text-white transition-transform duration-200 hover:scale-[1.03] sm:px-10 sm:py-3.5 sm:text-sm md:px-12 md:py-4 md:text-base';
+
+export const GRADIENT_PILL_STYLE: CSSProperties = {
+  background: 'linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%)',
+  boxShadow: '0px 4px 4px rgba(181, 1, 167, 0.25), 4px 4px 12px #7721B1 inset',
+  outline: '2px solid white',
+  outlineOffset: '-3px',
+};
 
 type ContactButtonProps = {
   href?: string;
@@ -10,16 +22,7 @@ type ContactButtonProps = {
 export default function ContactButton({ href = '#contact', className = '', label }: ContactButtonProps) {
   const { t } = useLang();
   return (
-    <a
-      href={href}
-      className={`inline-block whitespace-nowrap rounded-full px-8 py-3 text-xs font-medium uppercase tracking-widest text-white transition-transform duration-200 hover:scale-[1.03] sm:px-10 sm:py-3.5 sm:text-sm md:px-12 md:py-4 md:text-base ${className}`}
-      style={{
-        background: 'linear-gradient(123deg, #18011F 7%, #B600A8 37%, #7621B0 72%, #BE4C00 100%)',
-        boxShadow: '0px 4px 4px rgba(181, 1, 167, 0.25), 4px 4px 12px #7721B1 inset',
-        outline: '2px solid white',
-        outlineOffset: '-3px',
-      }}
-    >
+    <a href={href} className={`${GRADIENT_PILL_CLASS} ${className}`} style={GRADIENT_PILL_STYLE}>
       {label ?? t.contactButton}
     </a>
   );
