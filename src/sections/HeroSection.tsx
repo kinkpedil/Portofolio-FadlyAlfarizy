@@ -2,6 +2,7 @@ import FadeIn from '../components/FadeIn';
 import Magnet from '../components/Magnet';
 import ContactButton from '../components/ContactButton';
 import LanguageToggle from '../components/LanguageToggle';
+import ProtectedImage from '../components/ProtectedImage';
 import { useLang } from '../i18n';
 
 const PORTRAIT_URL = '/portrait.webp';
@@ -61,7 +62,7 @@ export default function HeroSection() {
             activeTransition="transform 0.3s ease-out"
             inactiveTransition="transform 0.6s ease-in-out"
           >
-            <img src={PORTRAIT_URL} alt="Fadly Alfarizy portrait" className="block h-auto w-full select-none" draggable={false} />
+            <ProtectedImage src={PORTRAIT_URL} alt="Fadly Alfarizy portrait" aspectRatio={934 / 1199} className="w-full" />
           </Magnet>
         </FadeIn>
       </div>
