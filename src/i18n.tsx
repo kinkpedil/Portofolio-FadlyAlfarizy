@@ -116,15 +116,15 @@ const en: Dictionary = {
     features: [
       {
         title: 'Simulation-style physics',
-        description: 'Cars that grip, slide, and react to the road the way you expect, not just arcade steering.',
+        description: 'Cars with weight and grip that aim for a simulation feel rather than pure arcade handling.',
       },
       {
         title: 'Low-poly graphics',
-        description: 'A clean, faceted art style that keeps the focus on driving and runs smoothly on phones.',
+        description: 'A clean, faceted art style that keeps the focus on the driving.',
       },
       {
         title: 'Built for Android',
-        description: 'Designed from the start for touch controls and mobile hardware.',
+        description: 'Made to be played on Android phones.',
       },
     ],
     followHeading: 'Follow the progress',
@@ -206,15 +206,15 @@ const id: Dictionary = {
     features: [
       {
         title: 'Fisika ala simulasi',
-        description: 'Mobil yang mencengkeram, tergelincir, dan bereaksi terhadap jalan sesuai harapan, bukan sekadar setir arcade.',
+        description: 'Mobil dengan bobot dan cengkeraman yang mengejar rasa simulasi, bukan sekadar kendali arcade.',
       },
       {
         title: 'Grafis low poly',
-        description: 'Gaya visual bersudut yang bersih, fokus pada berkendara, dan tetap lancar di HP.',
+        description: 'Gaya visual bersudut yang bersih, supaya fokus tetap pada berkendara.',
       },
       {
         title: 'Dibuat untuk Android',
-        description: 'Dirancang sejak awal untuk kontrol layar sentuh dan perangkat mobile.',
+        description: 'Dibuat untuk dimainkan di HP Android.',
       },
     ],
     followHeading: 'Ikuti perkembangannya',
