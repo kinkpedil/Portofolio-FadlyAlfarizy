@@ -28,8 +28,8 @@ export default function HeroSection() {
       </FadeIn>
 
       <FadeIn delay={0.15} y={40} className="overflow-hidden">
-        <h1 className="hero-heading mt-6 w-full whitespace-nowrap text-center text-[6.9vw] font-black uppercase leading-none tracking-tight sm:mt-4 sm:text-[7.4vw] md:mt-4 md:text-[7.9vw] lg:text-[8.6vw]">
-          Hi, i&apos;m fadly alfarizy
+        <h1 className="hero-heading mt-6 w-full whitespace-nowrap text-center text-[12.6vw] font-black uppercase leading-none tracking-tight sm:mt-4 sm:text-[13.5vw] md:-mt-5 md:text-[14.5vw] lg:text-[15.8vw]">
+          Hi, i&apos;m fadly
         </h1>
       </FadeIn>
 
