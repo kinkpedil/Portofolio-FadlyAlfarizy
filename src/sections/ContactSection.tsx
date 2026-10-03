@@ -1,5 +1,5 @@
-import { ArrowUpRight, Instagram, Youtube, type LucideIcon } from 'lucide-react';
-import type { CSSProperties, SVGProps } from 'react';
+import { ArrowUpRight, Check, Copy, Instagram, Youtube, type LucideIcon } from 'lucide-react';
+import { useState, type CSSProperties, type SVGProps } from 'react';
 import FadeIn from '../components/FadeIn';
 
 function DiscordIcon(props: SVGProps<SVGSVGElement>) {
@@ -13,35 +13,105 @@ function DiscordIcon(props: SVGProps<SVGSVGElement>) {
 type Contact = {
   name: string;
   handle: string;
-  href: string;
+  /** Opens in a new tab. Without it, clicking the row copies the handle instead. */
+  href?: string;
   color: string;
   icon: LucideIcon | typeof DiscordIcon;
 };
 
-// TODO: ganti handle & link dengan akun asli.
 const CONTACTS: Contact[] = [
   {
     name: 'Instagram',
-    handle: '@username',
-    href: 'https://instagram.com/username',
+    handle: '@pdly25_',
+    href: 'https://www.instagram.com/pdly25_/',
     color: '#E1306C',
     icon: Instagram,
   },
   {
     name: 'Discord',
-    handle: 'username',
-    href: 'https://discord.com/users/000000000000000000',
+    handle: 'mavkx12',
     color: '#5865F2',
     icon: DiscordIcon,
   },
   {
     name: 'YouTube',
-    handle: '@channel',
-    href: 'https://youtube.com/@channel',
+    handle: '@kinkpedil12',
+    href: 'https://www.youtube.com/@kinkpedil12',
     color: '#FF0000',
     icon: Youtube,
   },
 ];
+
+const ROW_CLASS =
+  'group flex w-full items-center gap-5 py-8 text-left text-[#0C0C0C] transition-colors duration-300 hover:text-[var(--brand)] sm:gap-8 sm:py-10 md:gap-12 md:py-12';
+const ACTION_ICON_STYLE = { width: 'clamp(2rem, 5vw, 4rem)', height: 'clamp(2rem, 5vw, 4rem)' };
+
+function ContactRow({ contact }: { contact: Contact }) {
+  const [copied, setCopied] = useState(false);
+  const Icon = contact.icon;
+
+  const content = (
+    <>
+      <span
+        className="flex shrink-0 items-center justify-center rounded-full border-2 border-current transition-transform duration-300 group-hover:scale-110"
+        style={{ width: 'clamp(3.5rem, 8vw, 6.5rem)', height: 'clamp(3.5rem, 8vw, 6.5rem)' }}
+      >
+        <Icon className="h-1/2 w-1/2" />
+      </span>
+      <span className="flex min-w-0 flex-1 flex-col gap-1">
+        <span className="font-black uppercase leading-none tracking-tight" style={{ fontSize: 'clamp(1.75rem, 6vw, 5rem)' }}>
+          {contact.name}
+        </span>
+        <span className="truncate font-light text-[#0C0C0C]/60" style={{ fontSize: 'clamp(0.85rem, 1.6vw, 1.25rem)' }}>
+          {copied ? 'Copied!' : contact.handle}
+        </span>
+      </span>
+      {contact.href ? (
+        <ArrowUpRight
+          className="shrink-0 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1"
+          style={ACTION_ICON_STYLE}
+          strokeWidth={1.5}
+        />
+      ) : copied ? (
+        <Check className="shrink-0" style={ACTION_ICON_STYLE} strokeWidth={1.5} />
+      ) : (
+        <Copy className="shrink-0 transition-transform duration-300 group-hover:scale-110" style={ACTION_ICON_STYLE} strokeWidth={1.5} />
+      )}
+    </>
+  );
+
+  const style = { '--brand': contact.color } as CSSProperties;
+
+  if (contact.href) {
+    return (
+      <a href={contact.href} target="_blank" rel="noreferrer" className={ROW_CLASS} style={style}>
+        {content}
+      </a>
+    );
+  }
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(contact.handle);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Clipboard unavailable (e.g. insecure context); the handle is still visible to copy by hand.
+    }
+  };
+
+  return (
+    <button
+      type="button"
+      onClick={handleCopy}
+      className={ROW_CLASS}
+      style={style}
+      aria-label={`Copy ${contact.name} username ${contact.handle}`}
+    >
+      {content}
+    </button>
+  );
+}
 
 export default function ContactSection() {
   return (
@@ -68,54 +138,19 @@ export default function ContactSection() {
       </FadeIn>
 
       <ul className="mx-auto w-full max-w-5xl">
-        {CONTACTS.map((contact, i) => {
-          const Icon = contact.icon;
-          return (
-            <FadeIn
-              as="li"
-              key={contact.name}
-              delay={i * 0.1}
-              style={{
-                borderTop: '1px solid rgba(12, 12, 12, 0.15)',
-                borderBottom: i === CONTACTS.length - 1 ? '1px solid rgba(12, 12, 12, 0.15)' : undefined,
-              }}
-            >
-              <a
-                href={contact.href}
-                target="_blank"
-                rel="noreferrer"
-                className="group flex items-center gap-5 py-8 text-[#0C0C0C] transition-colors duration-300 hover:text-[var(--brand)] sm:gap-8 sm:py-10 md:gap-12 md:py-12"
-                style={{ '--brand': contact.color } as CSSProperties}
-              >
-                <span
-                  className="flex shrink-0 items-center justify-center rounded-full border-2 border-current transition-transform duration-300 group-hover:scale-110"
-                  style={{ width: 'clamp(3.5rem, 8vw, 6.5rem)', height: 'clamp(3.5rem, 8vw, 6.5rem)' }}
-                >
-                  <Icon className="h-1/2 w-1/2" />
-                </span>
-                <span className="flex min-w-0 flex-1 flex-col gap-1">
-                  <span
-                    className="font-black uppercase leading-none tracking-tight"
-                    style={{ fontSize: 'clamp(1.75rem, 6vw, 5rem)' }}
-                  >
-                    {contact.name}
-                  </span>
-                  <span
-                    className="truncate font-light text-[#0C0C0C]/60"
-                    style={{ fontSize: 'clamp(0.85rem, 1.6vw, 1.25rem)' }}
-                  >
-                    {contact.handle}
-                  </span>
-                </span>
-                <ArrowUpRight
-                  className="shrink-0 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1"
-                  style={{ width: 'clamp(2rem, 5vw, 4rem)', height: 'clamp(2rem, 5vw, 4rem)' }}
-                  strokeWidth={1.5}
-                />
-              </a>
-            </FadeIn>
-          );
-        })}
+        {CONTACTS.map((contact, i) => (
+          <FadeIn
+            as="li"
+            key={contact.name}
+            delay={i * 0.1}
+            style={{
+              borderTop: '1px solid rgba(12, 12, 12, 0.15)',
+              borderBottom: i === CONTACTS.length - 1 ? '1px solid rgba(12, 12, 12, 0.15)' : undefined,
+            }}
+          >
+            <ContactRow contact={contact} />
+          </FadeIn>
+        ))}
       </ul>
 
       <footer className="mx-auto mt-auto flex w-full max-w-5xl items-center justify-between pt-20 text-xs font-light uppercase tracking-widest text-[#0C0C0C]/60 sm:text-sm">
