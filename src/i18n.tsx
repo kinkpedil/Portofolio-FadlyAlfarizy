@@ -40,6 +40,7 @@ type Dictionary = {
     followHeading: string;
     followText: string;
   };
+  notFound: { heading: string; text: string; home: string };
 };
 
 const en: Dictionary = {
@@ -130,6 +131,11 @@ const en: Dictionary = {
     followHeading: 'Follow the progress',
     followText: 'PolyGrip is still being built. Follow along for updates as it takes shape.',
   },
+  notFound: {
+    heading: 'Wrong turn',
+    text: "This page went off track. Let's head back to the pits and start again from the home page.",
+    home: 'Back to home',
+  },
 };
 
 const id: Dictionary = {
@@ -219,6 +225,11 @@ const id: Dictionary = {
     ],
     followHeading: 'Ikuti perkembangannya',
     followText: 'PolyGrip masih dalam tahap pembuatan. Ikuti terus untuk kabar terbaru seiring game ini terbentuk.',
+  },
+  notFound: {
+    heading: 'Salah belok',
+    text: 'Halaman ini keluar lintasan. Yuk, balik ke pit dan lanjutkan dari halaman utama.',
+    home: 'Kembali ke beranda',
   },
 };
 

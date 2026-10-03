@@ -3,9 +3,11 @@ import { useLang } from '../i18n';
 type ContactButtonProps = {
   href?: string;
   className?: string;
+  /** Defaults to the translated "Contact Me". */
+  label?: string;
 };
 
-export default function ContactButton({ href = '#contact', className = '' }: ContactButtonProps) {
+export default function ContactButton({ href = '#contact', className = '', label }: ContactButtonProps) {
   const { t } = useLang();
   return (
     <a
@@ -18,7 +20,7 @@ export default function ContactButton({ href = '#contact', className = '' }: Con
         outlineOffset: '-3px',
       }}
     >
-      {t.contactButton}
+      {label ?? t.contactButton}
     </a>
   );
 }
