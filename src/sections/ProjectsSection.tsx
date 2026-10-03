@@ -1,4 +1,4 @@
-import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from 'framer-motion';
+import { motion, useScroll, useTransform, type MotionValue } from 'framer-motion';
 import { useRef } from 'react';
 import FadeIn from '../components/FadeIn';
 import LiveProjectButton from '../components/LiveProjectButton';
@@ -86,13 +86,12 @@ function ProjectCard({ project, index, total, progress }: ProjectCardProps) {
   const copy = t.projects[project.key];
   const targetScale = 1 - (total - 1 - index) * 0.03;
   const scale = useTransform(progress, [index / total, 1], [1, targetScale]);
-  const reduceMotion = useReducedMotion();
 
   return (
     <div className="sticky top-24 flex h-[85vh] items-start justify-center md:top-32">
       <motion.article
         className={`relative flex w-full origin-top flex-col gap-6 border-2 border-[#D7E2EA] p-4 sm:gap-8 sm:p-6 md:p-8 ${RADIUS}`}
-        style={{ scale: reduceMotion ? 1 : scale, top: `${index * 28}px`, background: '#0C0C0C' }}
+        style={{ scale, top: `${index * 28}px`, background: '#0C0C0C' }}
       >
         <div className="flex flex-col gap-4 px-2 sm:px-4">
           <div className="flex flex-wrap items-end justify-between gap-4">
