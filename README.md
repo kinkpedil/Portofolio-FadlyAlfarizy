@@ -1,4 +1,4 @@
-# Portofolio — 3D Creator Landing Page
+# Portofolio Fadly Alfarizy — Web & Game Developer
 
 React + TypeScript + Tailwind CSS + Framer Motion + Lucide React (Vite).
 

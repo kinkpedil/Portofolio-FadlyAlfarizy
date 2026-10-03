@@ -2,29 +2,24 @@ import FadeIn from '../components/FadeIn';
 
 const SERVICES = [
   {
-    name: '3D Modeling',
+    name: 'Web Development',
     description:
-      'Creation of detailed objects, characters, or environments tailored to specific client needs, ideal for games, products, and visualizations.',
+      'Building fast, responsive websites with React, TypeScript, and Tailwind CSS, from landing pages to personal portfolios like this one.',
   },
   {
-    name: 'Rendering',
+    name: 'Game Development',
     description:
-      'High-quality, photorealistic renders that showcase designs with custom lighting, textures, and materials to bring concepts to life.',
+      'Learning to craft indie games one project at a time, turning small ideas into playable prototypes on the way to bigger worlds.',
   },
   {
-    name: 'Motion Design',
+    name: 'UI & Animation',
     description:
-      'Dynamic animations and motion graphics that add energy and storytelling to brands, products, and digital experiences.',
+      'Designing clean, modern interfaces with careful layout, bold typography, and smooth animations that make a page feel alive.',
   },
   {
-    name: 'Branding',
+    name: 'AI-Assisted Building',
     description:
-      'Crafting cohesive visual identities -- from logos to full brand systems -- that communicate a clear and memorable presence.',
-  },
-  {
-    name: 'Web Design',
-    description:
-      'Designing clean, modern, and conversion-focused websites with attention to layout, typography, and user experience.',
+      'Working hand in hand with AI to explore ideas, write code, and ship projects faster while learning something new every day.',
   },
 ];
 
@@ -56,7 +51,7 @@ export default function ServicesSection() {
               borderBottom: i === SERVICES.length - 1 ? '1px solid rgba(12, 12, 12, 0.15)' : undefined,
             }}
           >
-            <span className="font-black leading-none" style={{ fontSize: 'clamp(3rem, 10vw, 140px)' }}>
+            <span className="shrink-0 font-black leading-none" style={{ fontSize: 'clamp(3rem, 10vw, 140px)', width: '1.3em' }}>
               {String(i + 1).padStart(2, '0')}
             </span>
             <div className="flex flex-col gap-2 md:gap-3">
