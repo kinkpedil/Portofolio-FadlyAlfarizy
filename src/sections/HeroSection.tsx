@@ -4,7 +4,7 @@ import ContactButton from '../components/ContactButton';
 
 const NAV_LINKS = [
   { label: 'About', href: '#about' },
-  { label: 'Price', href: '#services' },
+  { label: 'Services', href: '#services' },
   { label: 'Projects', href: '#projects' },
   { label: 'Contact', href: '#contact' },
 ];

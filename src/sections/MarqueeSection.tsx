@@ -1,40 +1,37 @@
 import { useEffect, useRef, useState } from 'react';
 
-const IMAGES = [
-  'https://motionsites.ai/assets/hero-space-voyage-preview-eECLH3Yc.gif',
-  'https://motionsites.ai/assets/hero-codenest-preview-Cgppc2qV.gif',
-  'https://motionsites.ai/assets/hero-vex-ventures-preview-BczMFIiw.gif',
-  'https://motionsites.ai/assets/hero-stellar-ai-v2-preview-DjvxjG3C.gif',
-  'https://motionsites.ai/assets/hero-asme-preview-B_nGDnTP.gif',
-  'https://motionsites.ai/assets/hero-transform-data-preview-Cx5OU29N.gif',
-  'https://motionsites.ai/assets/hero-vitara-preview-Cjz2QYyU.gif',
-  'https://motionsites.ai/assets/hero-terra-preview-BFjrCr7T.gif',
-  'https://motionsites.ai/assets/hero-skyelite-preview-DHaZIgUv.gif',
-  'https://motionsites.ai/assets/hero-aethera-preview-DknSlcTa.gif',
-  'https://motionsites.ai/assets/hero-designpro-preview-D8c5_een.gif',
-  'https://motionsites.ai/assets/hero-stellar-ai-preview-D3HL6bw1.gif',
-  'https://motionsites.ai/assets/hero-xportfolio-preview-D4A8maiC.gif',
-  'https://motionsites.ai/assets/hero-orbit-web3-preview-BXt4OttD.gif',
-  'https://motionsites.ai/assets/hero-nexora-preview-cx5HmUgo.gif',
-  'https://motionsites.ai/assets/hero-evr-ventures-preview-DZxeVFEX.gif',
-  'https://motionsites.ai/assets/hero-planet-orbit-preview-DWAP8Z1P.gif',
-  'https://motionsites.ai/assets/hero-new-era-preview-CocuDUm9.gif',
-  'https://motionsites.ai/assets/hero-wealth-preview-B70idl_u.gif',
-  'https://motionsites.ai/assets/hero-luminex-preview-CxOP7ce6.gif',
-  'https://motionsites.ai/assets/hero-celestia-preview-0yO3jXO8.gif',
-];
+const ROW_1_WORDS = ['Web Developer', 'Indie Game Dev', 'React', 'TypeScript', 'Tailwind CSS', 'Framer Motion'];
+const ROW_2_WORDS = ['Next.js', 'Vite', 'Supabase', 'Vercel', 'Built with AI', 'Always Learning'];
 
-const ROW_1 = [...IMAGES.slice(0, 11), ...IMAGES.slice(0, 11), ...IMAGES.slice(0, 11)];
-const ROW_2 = [...IMAGES.slice(11), ...IMAGES.slice(11), ...IMAGES.slice(11)];
+const tripled = (words: string[]) => [...words, ...words, ...words];
 
-function Tile({ src }: { src: string }) {
+const WORD_STYLE = { fontSize: 'clamp(2.75rem, 8vw, 7rem)' };
+
+function Row({ words, offset, outlined }: { words: string[]; offset: number; outlined?: boolean }) {
   return (
-    <img
-      src={src}
-      alt=""
-      loading="lazy"
-      className="h-[270px] w-[420px] shrink-0 rounded-2xl object-cover"
-    />
+    <div
+      className="flex w-max items-center gap-6 sm:gap-10"
+      // Start one full set to the left so neither edge ever shows a gap while scrolling.
+      style={{ transform: `translateX(calc(-33.333% + ${offset}px))`, willChange: 'transform' }}
+    >
+      {tripled(words).map((word, i) => (
+        <span key={i} className="flex items-center gap-6 sm:gap-10">
+          <span
+            className={`whitespace-nowrap font-black uppercase leading-none tracking-tight ${outlined ? '' : 'hero-heading'}`}
+            style={
+              outlined
+                ? { ...WORD_STYLE, color: 'transparent', WebkitTextStroke: '1.5px #D7E2EA' }
+                : WORD_STYLE
+            }
+          >
+            {word}
+          </span>
+          <span aria-hidden="true" className="text-[#B600A8]" style={{ fontSize: 'clamp(1.5rem, 4vw, 3.5rem)' }}>
+            ✦
+          </span>
+        </span>
+      ))}
+    </div>
   );
 }
 
@@ -62,25 +59,12 @@ export default function MarqueeSection() {
   return (
     <section
       ref={sectionRef}
-      className="flex flex-col gap-3 overflow-hidden pb-10 pt-24 sm:pt-32 md:pt-40"
+      aria-label="Skills and tools"
+      className="flex flex-col gap-4 overflow-hidden pb-10 pt-24 sm:gap-6 sm:pt-32 md:pt-40"
       style={{ background: '#0C0C0C' }}
     >
-      <div
-        className="flex w-max gap-3"
-        style={{ transform: `translateX(${offset - 200}px)`, willChange: 'transform' }}
-      >
-        {ROW_1.map((src, i) => (
-          <Tile key={`r1-${i}`} src={src} />
-        ))}
-      </div>
-      <div
-        className="flex w-max gap-3"
-        style={{ transform: `translateX(${-(offset - 200)}px)`, willChange: 'transform' }}
-      >
-        {ROW_2.map((src, i) => (
-          <Tile key={`r2-${i}`} src={src} />
-        ))}
-      </div>
+      <Row words={ROW_1_WORDS} offset={offset - 200} />
+      <Row words={ROW_2_WORDS} offset={-(offset - 200)} outlined />
     </section>
   );
 }
