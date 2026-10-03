@@ -27,16 +27,11 @@ export default function HeroSection() {
         ))}
       </FadeIn>
 
-      <div className="overflow-hidden">
-        <FadeIn
-          as="h1"
-          delay={0.15}
-          y={40}
-          className="hero-heading mt-6 w-full whitespace-nowrap text-center text-[14vw] font-black uppercase leading-none tracking-tight sm:mt-4 sm:text-[15vw] md:-mt-5 md:text-[16vw] lg:text-[17.5vw]"
-        >
-          Hi, i&apos;m jack
-        </FadeIn>
-      </div>
+      <FadeIn delay={0.15} y={40} className="overflow-hidden">
+        <h1 className="hero-heading mt-6 w-full whitespace-nowrap text-center text-[6.9vw] font-black uppercase leading-none tracking-tight sm:mt-4 sm:text-[7.4vw] md:mt-4 md:text-[7.9vw] lg:text-[8.6vw]">
+          Hi, i&apos;m fadly alfarizy
+        </h1>
+      </FadeIn>
 
       <div className="mt-auto flex items-end justify-between px-6 pb-7 sm:pb-8 md:px-10 md:pb-10">
         <FadeIn
@@ -61,7 +56,7 @@ export default function HeroSection() {
             activeTransition="transform 0.3s ease-out"
             inactiveTransition="transform 0.6s ease-in-out"
           >
-            <img src={PORTRAIT_URL} alt="Jack portrait" className="block h-auto w-full select-none" draggable={false} />
+            <img src={PORTRAIT_URL} alt="Fadly Alfarizy portrait" className="block h-auto w-full select-none" draggable={false} />
           </Magnet>
         </FadeIn>
       </div>
