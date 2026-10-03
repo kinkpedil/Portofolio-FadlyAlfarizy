@@ -1,52 +1,94 @@
 import { motion, useScroll, useTransform, type MotionValue } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import FadeIn from '../components/FadeIn';
 import LiveProjectButton from '../components/LiveProjectButton';
-
-const img = (file: string) =>
-  `https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2F${file}.png&w=1280&q=85`;
 
 type Project = {
   name: string;
   category: string;
-  href: string;
-  images: [string, string, string];
+  description: string;
+  tags: string[];
+  href?: string;
+  /** Three screenshots: left-top, left-bottom, right. Without them the card shows a styled cover. */
+  images?: [string, string, string];
+  /** Gradient used for the cover, and as the fallback if a screenshot fails to load. */
+  cover: string;
 };
 
 const PROJECTS: Project[] = [
   {
-    name: 'Nextlevel Studio',
-    category: 'Client',
-    href: '#',
+    name: 'FRL Broadcast',
+    category: 'Web App',
+    description:
+      'A broadcast toolkit for FR Legends racing leagues, with OBS overlays, live timing, drift judging, and an Android driver app.',
+    tags: ['Supabase', 'OBS Overlays', 'Android'],
+    href: 'https://frlcast.my.id',
     images: [
-      img('hf_20260412_055344_5eff02e0-87a5-41ce-b64f-eb08da8f33db'),
-      img('hf_20260412_055431_11d841fd-8b41-46a5-82e4-b04f2407a7d8'),
-      img('hf_20260412_055451_e317bf2d-28d4-48cc-86b0-6f72f25b6327'),
+      'https://frlcast.my.id/shots/dashboard.png',
+      'https://frlcast.my.id/shots/overlay.png',
+      'https://frlcast.my.id/shots/driver.png',
     ],
+    cover: 'linear-gradient(135deg, #18011F 0%, #7621B0 55%, #BE4C00 100%)',
   },
   {
-    name: 'Aura Brand Identity',
-    category: 'Personal',
-    href: '#',
-    images: [
-      img('hf_20260412_055654_911201c5-36d9-4bc6-bac7-331adfce159f'),
-      img('hf_20260412_055723_5ceda0b8-d9c2-4665-b2e3-83ba19ba76d1'),
-      img('hf_20260412_055753_adc5dcbd-a8e6-49c0-b43a-9b030d835cea'),
-    ],
+    name: 'Zatory Racing',
+    category: 'Website',
+    description: 'A website for Zatory Racing, built with Vite and deployed on Vercel.',
+    tags: ['Vite', 'Vercel'],
+    href: 'https://zatory-racing-website.vercel.app',
+    cover: 'linear-gradient(135deg, #0C0C0C 0%, #3A0A0A 45%, #D7263D 100%)',
   },
   {
-    name: 'Solaris Digital',
-    category: 'Client',
-    href: '#',
-    images: [
-      img('hf_20260412_055759_963cfb0b-4bd1-4b0f-9d0a-09bd6cf95b2f'),
-      img('hf_20260412_060108_438f781a-9846-4dcc-89ab-c4e6cb830f5b'),
-      img('hf_20260412_055818_9d062121-ad7e-46b9-999a-1a6a692ef1ee'),
-    ],
+    name: 'PolyGrip',
+    category: 'Game · In Development',
+    description: 'My own indie game, currently in development. More coming soon.',
+    tags: ['Game Dev', 'Work in Progress'],
+    cover: 'linear-gradient(135deg, #04121F 0%, #0B3D5C 50%, #19C3B4 100%)',
   },
 ];
 
-const IMAGE_RADIUS = 'rounded-[40px] sm:rounded-[50px] md:rounded-[60px]';
+const RADIUS = 'rounded-[40px] sm:rounded-[50px] md:rounded-[60px]';
+const TOP_IMAGE_HEIGHT = 'clamp(130px, 16vw, 230px)';
+const BOTTOM_IMAGE_HEIGHT = 'clamp(160px, 22vw, 340px)';
+
+function Shot({ src, alt, cover, height }: { src: string; alt: string; cover: string; height?: string }) {
+  const [failed, setFailed] = useState(false);
+
+  if (failed) {
+    return <div className={`w-full ${RADIUS} ${height ? '' : 'h-full'}`} style={{ background: cover, height }} />;
+  }
+
+  return (
+    <img
+      src={src}
+      alt={alt}
+      loading="lazy"
+      onError={() => setFailed(true)}
+      className={`w-full object-cover object-top ${RADIUS} ${height ? '' : 'h-full'}`}
+      style={{ height, background: cover }}
+    />
+  );
+}
+
+function Cover({ project }: { project: Project }) {
+  return (
+    <div
+      className={`relative flex w-full items-center justify-center overflow-hidden ${RADIUS}`}
+      style={{
+        background: project.cover,
+        height: `calc(${TOP_IMAGE_HEIGHT} + ${BOTTOM_IMAGE_HEIGHT} + 1rem)`,
+      }}
+    >
+      <span
+        aria-hidden="true"
+        className="select-none px-6 text-center font-black uppercase leading-[0.9] tracking-tight"
+        style={{ fontSize: 'clamp(2.5rem, 10vw, 150px)', color: 'transparent', WebkitTextStroke: '2px rgba(215, 226, 234, 0.85)' }}
+      >
+        {project.name}
+      </span>
+    </div>
+  );
+}
 
 type ProjectCardProps = {
   project: Project;
@@ -62,58 +104,59 @@ function ProjectCard({ project, index, total, progress }: ProjectCardProps) {
   return (
     <div className="sticky top-24 flex h-[85vh] items-start justify-center md:top-32">
       <motion.article
-        className={`relative flex w-full origin-top flex-col gap-6 border-2 border-[#D7E2EA] p-4 sm:gap-8 sm:p-6 md:p-8 ${IMAGE_RADIUS}`}
+        className={`relative flex w-full origin-top flex-col gap-6 border-2 border-[#D7E2EA] p-4 sm:gap-8 sm:p-6 md:p-8 ${RADIUS}`}
         style={{ scale, top: `${index * 28}px`, background: '#0C0C0C' }}
       >
-        <div className="flex flex-wrap items-end justify-between gap-4 px-2 sm:px-4">
-          <div className="flex items-end gap-4 sm:gap-6">
-            <span
-              className="font-black leading-none text-[#D7E2EA]"
-              style={{ fontSize: 'clamp(3rem, 10vw, 140px)' }}
-            >
-              {String(index + 1).padStart(2, '0')}
-            </span>
-            <div className="flex flex-col pb-1 sm:pb-2 md:pb-3">
-              <span className="text-xs font-light uppercase tracking-widest text-[#D7E2EA]/60 sm:text-sm">
-                {project.category}
+        <div className="flex flex-col gap-4 px-2 sm:px-4">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div className="flex items-end gap-4 sm:gap-6">
+              <span className="font-black leading-none text-[#D7E2EA]" style={{ fontSize: 'clamp(3rem, 10vw, 140px)' }}>
+                {String(index + 1).padStart(2, '0')}
               </span>
-              <h3
-                className="font-medium uppercase text-[#D7E2EA]"
-                style={{ fontSize: 'clamp(1rem, 2.2vw, 2.1rem)' }}
-              >
-                {project.name}
-              </h3>
+              <div className="flex flex-col pb-1 sm:pb-2 md:pb-3">
+                <span className="text-xs font-light uppercase tracking-widest text-[#D7E2EA]/60 sm:text-sm">
+                  {project.category}
+                </span>
+                <h3 className="font-medium uppercase text-[#D7E2EA]" style={{ fontSize: 'clamp(1rem, 2.2vw, 2.1rem)' }}>
+                  {project.name}
+                </h3>
+              </div>
             </div>
+            <LiveProjectButton href={project.href} />
           </div>
-          <LiveProjectButton href={project.href} />
+          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+            <p
+              className="max-w-2xl font-light leading-relaxed text-[#D7E2EA]/70"
+              style={{ fontSize: 'clamp(0.85rem, 1.4vw, 1.1rem)' }}
+            >
+              {project.description}
+            </p>
+            <ul className="flex flex-wrap gap-2">
+              {project.tags.map((tag) => (
+                <li
+                  key={tag}
+                  className="whitespace-nowrap rounded-full border border-[#D7E2EA]/30 px-3 py-1 text-[0.7rem] uppercase tracking-widest text-[#D7E2EA]/80 sm:text-xs"
+                >
+                  {tag}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
-        <div className="flex gap-3 sm:gap-4">
-          <div className="flex w-[40%] flex-col gap-3 sm:gap-4">
-            <img
-              src={project.images[0]}
-              alt={`${project.name} preview 1`}
-              loading="lazy"
-              className={`w-full object-cover ${IMAGE_RADIUS}`}
-              style={{ height: 'clamp(130px, 16vw, 230px)' }}
-            />
-            <img
-              src={project.images[1]}
-              alt={`${project.name} preview 2`}
-              loading="lazy"
-              className={`w-full object-cover ${IMAGE_RADIUS}`}
-              style={{ height: 'clamp(160px, 22vw, 340px)' }}
-            />
+        {project.images ? (
+          <div className="flex gap-3 sm:gap-4">
+            <div className="flex w-[40%] flex-col gap-3 sm:gap-4">
+              <Shot src={project.images[0]} alt={`${project.name} screenshot 1`} cover={project.cover} height={TOP_IMAGE_HEIGHT} />
+              <Shot src={project.images[1]} alt={`${project.name} screenshot 2`} cover={project.cover} height={BOTTOM_IMAGE_HEIGHT} />
+            </div>
+            <div className="w-[60%]">
+              <Shot src={project.images[2]} alt={`${project.name} screenshot 3`} cover={project.cover} />
+            </div>
           </div>
-          <div className="w-[60%]">
-            <img
-              src={project.images[2]}
-              alt={`${project.name} preview 3`}
-              loading="lazy"
-              className={`h-full w-full object-cover ${IMAGE_RADIUS}`}
-            />
-          </div>
-        </div>
+        ) : (
+          <Cover project={project} />
+        )}
       </motion.article>
     </div>
   );
@@ -143,13 +186,7 @@ export default function ProjectsSection() {
 
       <div ref={containerRef} className="relative mx-auto max-w-6xl">
         {PROJECTS.map((project, i) => (
-          <ProjectCard
-            key={project.name}
-            project={project}
-            index={i}
-            total={PROJECTS.length}
-            progress={scrollYProgress}
-          />
+          <ProjectCard key={project.name} project={project} index={i} total={PROJECTS.length} progress={scrollYProgress} />
         ))}
       </div>
     </section>
