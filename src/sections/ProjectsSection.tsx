@@ -9,8 +9,10 @@ type Project = {
   description: string;
   tags: string[];
   href?: string;
-  /** Three screenshots: left-top, left-bottom, right. Without them the card shows a styled cover. */
+  /** Three screenshots: left-top, left-bottom, right. */
   images?: [string, string, string];
+  /** A single full-width screenshot, for projects with one. Without any image the card shows a styled cover. */
+  image?: string;
   /** Gradient used for the cover, and as the fallback if a screenshot fails to load. */
   cover: string;
 };
@@ -33,9 +35,11 @@ const PROJECTS: Project[] = [
   {
     name: 'Zatory Racing',
     category: 'Website',
-    description: 'A website for Zatory Racing, built with Vite and deployed on Vercel.',
-    tags: ['Vite', 'Vercel'],
+    description:
+      'The official website of Zatory Racing Team, a virtual racing team competing in Assetto Corsa and MotoGP, with team news, a gallery, and driver profiles.',
+    tags: ['Vite', 'Sim Racing', 'Vercel'],
     href: 'https://zatory-racing-website.vercel.app',
+    image: '/projects/zatory-racing.webp',
     cover: 'linear-gradient(135deg, #0C0C0C 0%, #3A0A0A 45%, #D7263D 100%)',
   },
   {
@@ -50,6 +54,8 @@ const PROJECTS: Project[] = [
 const RADIUS = 'rounded-[40px] sm:rounded-[50px] md:rounded-[60px]';
 const TOP_IMAGE_HEIGHT = 'clamp(130px, 16vw, 230px)';
 const BOTTOM_IMAGE_HEIGHT = 'clamp(160px, 22vw, 340px)';
+// Single images and covers match the height of the three-image grid so stacked cards line up.
+const FULL_MEDIA_HEIGHT = `calc(${TOP_IMAGE_HEIGHT} + ${BOTTOM_IMAGE_HEIGHT} + 1rem)`;
 
 function Shot({ src, alt, cover, height }: { src: string; alt: string; cover: string; height?: string }) {
   const [failed, setFailed] = useState(false);
@@ -76,7 +82,7 @@ function Cover({ project }: { project: Project }) {
       className={`relative flex w-full items-center justify-center overflow-hidden ${RADIUS}`}
       style={{
         background: project.cover,
-        height: `calc(${TOP_IMAGE_HEIGHT} + ${BOTTOM_IMAGE_HEIGHT} + 1rem)`,
+        height: FULL_MEDIA_HEIGHT,
       }}
     >
       <span
@@ -154,6 +160,14 @@ function ProjectCard({ project, index, total, progress }: ProjectCardProps) {
               <Shot src={project.images[2]} alt={`${project.name} screenshot 3`} cover={project.cover} />
             </div>
           </div>
+        ) : project.image ? (
+          <img
+            src={project.image}
+            alt={`${project.name} screenshot`}
+            loading="lazy"
+            className={`w-full object-cover object-top ${RADIUS}`}
+            style={{ height: FULL_MEDIA_HEIGHT, background: project.cover }}
+          />
         ) : (
           <Cover project={project} />
         )}
