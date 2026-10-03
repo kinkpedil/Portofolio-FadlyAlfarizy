@@ -5,7 +5,7 @@ import { useLang } from '../i18n';
 
 // Web3Forms forwards each submission to Fadly's email. The access key only allows sending to
 // that inbox, so it is safe to ship in the page. While it is empty the form is not shown.
-export const WEB3FORMS_ACCESS_KEY = '';
+export const WEB3FORMS_ACCESS_KEY = '4b2a3e76-1819-4a0c-b47d-fc0ad333918a';
 
 type Status = 'idle' | 'sending' | 'sent' | 'error';
 
