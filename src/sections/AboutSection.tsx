@@ -32,7 +32,7 @@ const DECORATIONS = [
 ];
 
 const ABOUT_TEXT =
-  "With more than five years of experience in design, i focus on branding, web design, and user experience, i truly enjoy working with businesses that aim to stand out and present their best image. Let's build something incredible together!";
+  "I'm a web developer chasing a dream of becoming an indie game developer. I build everything hand in hand with AI, and I spend my free time learning to make both games and websites. Fun fact: I was in 9th grade when I built this site. Let's build something incredible together!";
 
 export default function AboutSection() {
   return (
