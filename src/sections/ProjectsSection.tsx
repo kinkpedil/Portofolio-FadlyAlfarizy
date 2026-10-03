@@ -152,8 +152,6 @@ export default function ProjectsSection() {
           />
         ))}
       </div>
-
-      <div id="contact" />
     </section>
   );
 }
