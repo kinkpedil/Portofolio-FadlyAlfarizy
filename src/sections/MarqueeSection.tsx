@@ -1,3 +1,4 @@
+import { useReducedMotion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 
 const ROW_1_WORDS = ['Web Developer', 'Indie Game Dev', 'React', 'TypeScript', 'Tailwind CSS', 'Framer Motion'];
@@ -39,7 +40,11 @@ export default function MarqueeSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const [offset, setOffset] = useState(0);
 
+  const reduceMotion = useReducedMotion();
+
   useEffect(() => {
+    // Leave the rows still for visitors who ask for less motion.
+    if (reduceMotion) return;
     const handleScroll = () => {
       const section = sectionRef.current;
       if (!section) return;
@@ -54,7 +59,7 @@ export default function MarqueeSection() {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleScroll);
     };
-  }, []);
+  }, [reduceMotion]);
 
   return (
     <section

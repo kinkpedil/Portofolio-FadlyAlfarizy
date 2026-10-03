@@ -1,3 +1,4 @@
+import { MotionConfig } from 'framer-motion';
 import HeroSection from './sections/HeroSection';
 import MarqueeSection from './sections/MarqueeSection';
 import AboutSection from './sections/AboutSection';
@@ -7,13 +8,16 @@ import ContactSection from './sections/ContactSection';
 
 export default function App() {
   return (
-    <main style={{ background: '#0C0C0C', overflowX: 'clip' }}>
-      <HeroSection />
-      <MarqueeSection />
-      <AboutSection />
-      <ServicesSection />
-      <ProjectsSection />
-      <ContactSection />
-    </main>
+    // reducedMotion="user": entrance animations drop their movement for visitors who ask for less motion.
+    <MotionConfig reducedMotion="user">
+      <main style={{ background: '#0C0C0C', overflowX: 'clip' }}>
+        <HeroSection />
+        <MarqueeSection />
+        <AboutSection />
+        <ServicesSection />
+        <ProjectsSection />
+        <ContactSection />
+      </main>
+    </MotionConfig>
   );
 }
