@@ -2,6 +2,7 @@ import FadeIn from '../components/FadeIn';
 import AnimatedText from '../components/AnimatedText';
 import ContactButton from '../components/ContactButton';
 import { CheckeredFlag, Speedometer, StartLights, Tyre } from '../components/RacingDecorations';
+import { Download } from 'lucide-react';
 import { useLang } from '../i18n';
 
 const DECORATIONS = [
@@ -73,7 +74,17 @@ export default function AboutSection() {
             style={{ fontSize: 'clamp(1rem, 2vw, 1.35rem)' }}
           />
         </div>
-        <ContactButton />
+        <div className="flex flex-wrap items-center justify-center gap-4">
+          <ContactButton />
+          <a
+            href="/cv-fadly-alfarizy.pdf"
+            download
+            className="inline-flex items-center gap-2 whitespace-nowrap rounded-full px-8 outline outline-2 -outline-offset-2 outline-[#D7E2EA] py-3 text-xs font-medium uppercase tracking-widest text-[#D7E2EA] transition-colors duration-200 hover:bg-[#D7E2EA]/10 sm:px-10 sm:py-3.5 sm:text-sm md:px-12 md:py-4 md:text-base"
+          >
+            <Download className="h-4 w-4 md:h-5 md:w-5" aria-hidden="true" />
+            {t.about.downloadCv}
+          </a>
+        </div>
       </div>
     </section>
   );
