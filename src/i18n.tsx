@@ -5,7 +5,6 @@ export type Lang = 'en' | 'id';
 type ProjectCopy = { category: string; description: string };
 
 type Dictionary = {
-  meta: { title: string };
   nav: { about: string; services: string; projects: string; contact: string };
   hero: {
     heading: string;
@@ -44,7 +43,6 @@ type Dictionary = {
 };
 
 const en: Dictionary = {
-  meta: { title: 'Fadly Alfarizy -- Web & Game Developer' },
   nav: { about: 'About', services: 'Services', projects: 'Projects', contact: 'Contact' },
   hero: {
     heading: "Hi, i'm fadly",
@@ -135,7 +133,6 @@ const en: Dictionary = {
 };
 
 const id: Dictionary = {
-  meta: { title: 'Fadly Alfarizy -- Web & Game Developer' },
   nav: { about: 'Tentang', services: 'Layanan', projects: 'Proyek', contact: 'Kontak' },
   hero: {
     heading: 'Hai, aku fadly',
