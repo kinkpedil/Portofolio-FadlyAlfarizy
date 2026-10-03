@@ -1,34 +1,40 @@
 import FadeIn from '../components/FadeIn';
 import Magnet from '../components/Magnet';
 import ContactButton from '../components/ContactButton';
-
-const NAV_LINKS = [
-  { label: 'About', href: '#about' },
-  { label: 'Services', href: '#services' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Contact', href: '#contact' },
-];
+import LanguageToggle from '../components/LanguageToggle';
+import { useLang } from '../i18n';
 
 const PORTRAIT_URL = '/portrait.webp';
 
 export default function HeroSection() {
+  const { t } = useLang();
+  const navLinks = [
+    { label: t.nav.about, href: '#about' },
+    { label: t.nav.services, href: '#services' },
+    { label: t.nav.projects, href: '#projects' },
+    { label: t.nav.contact, href: '#contact' },
+  ];
+
   return (
     <section className="relative flex h-screen flex-col" style={{ overflowX: 'clip' }}>
-      <FadeIn as="nav" delay={0} y={-20} className="flex justify-between px-6 pt-6 md:px-10 md:pt-8">
-        {NAV_LINKS.map((link) => (
+      <FadeIn as="nav" delay={0} y={-20} className="flex items-center justify-between gap-3 px-6 pt-6 md:px-10 md:pt-8">
+        {navLinks.map((link) => (
           <a
-            key={link.label}
+            key={link.href}
             href={link.href}
-            className="text-sm font-medium uppercase tracking-wider text-[#D7E2EA] transition-opacity duration-200 hover:opacity-70 md:text-lg lg:text-[1.4rem]"
+            className="text-xs font-medium uppercase tracking-wider text-[#D7E2EA] transition-opacity duration-200 hover:opacity-70 sm:text-sm md:text-lg lg:text-[1.4rem]"
           >
             {link.label}
           </a>
         ))}
+        <LanguageToggle />
       </FadeIn>
 
       <FadeIn delay={0.15} y={40} className="overflow-hidden">
-        <h1 className="hero-heading mt-6 w-full whitespace-nowrap text-center text-[12.6vw] font-black uppercase leading-none tracking-tight sm:mt-4 sm:text-[13.5vw] md:-mt-5 md:text-[14.5vw] lg:text-[15.8vw]">
-          Hi, i&apos;m fadly
+        <h1
+          className={`hero-heading mt-6 w-full whitespace-nowrap text-center font-black uppercase leading-none tracking-tight sm:mt-4 md:-mt-5 ${t.hero.headingSize}`}
+        >
+          {t.hero.heading}
         </h1>
       </FadeIn>
 
@@ -40,7 +46,7 @@ export default function HeroSection() {
           className="relative z-20 max-w-[160px] font-light uppercase leading-snug tracking-wide text-[#D7E2EA] sm:max-w-[220px] md:max-w-[260px]"
           style={{ fontSize: 'clamp(0.75rem, 1.4vw, 1.5rem)' }}
         >
-          a web developer & aspiring indie game dev building with ai
+          {t.hero.tagline}
         </FadeIn>
         <FadeIn delay={0.5} y={20} className="relative z-20">
           <ContactButton />

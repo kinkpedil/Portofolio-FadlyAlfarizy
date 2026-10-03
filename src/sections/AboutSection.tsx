@@ -1,6 +1,7 @@
 import FadeIn from '../components/FadeIn';
 import AnimatedText from '../components/AnimatedText';
 import ContactButton from '../components/ContactButton';
+import { useLang } from '../i18n';
 
 const ASSET_BASE = 'https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7';
 
@@ -31,10 +32,8 @@ const DECORATIONS = [
   },
 ];
 
-const ABOUT_TEXT =
-  "I'm a web developer chasing a dream of becoming an indie game developer. I build everything hand in hand with AI, and I spend my free time learning to make both games and websites. Fun fact: I was in 9th grade when I built this site. Let's build something incredible together!";
-
 export default function AboutSection() {
+  const { t } = useLang();
   return (
     <section
       id="about"
@@ -62,10 +61,11 @@ export default function AboutSection() {
             className="hero-heading text-center font-black uppercase leading-none tracking-tight"
             style={{ fontSize: 'clamp(3rem, 12vw, 160px)' }}
           >
-            About me
+            {t.about.heading}
           </FadeIn>
           <AnimatedText
-            text={ABOUT_TEXT}
+            key={t.about.text}
+            text={t.about.text}
             className="max-w-[560px] text-center font-medium leading-relaxed text-[#D7E2EA]"
             style={{ fontSize: 'clamp(1rem, 2vw, 1.35rem)' }}
           />

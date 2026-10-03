@@ -1,29 +1,10 @@
 import FadeIn from '../components/FadeIn';
+import { useLang } from '../i18n';
 
-const SERVICES = [
-  {
-    name: 'Web Development',
-    description:
-      'Building fast, responsive websites with React, TypeScript, and Tailwind CSS, from landing pages to personal portfolios like this one.',
-  },
-  {
-    name: 'Game Development',
-    description:
-      'Learning to craft indie games one project at a time, turning small ideas into playable prototypes on the way to bigger worlds.',
-  },
-  {
-    name: 'UI & Animation',
-    description:
-      'Designing clean, modern interfaces with careful layout, bold typography, and smooth animations that make a page feel alive.',
-  },
-  {
-    name: 'AI-Assisted Building',
-    description:
-      'Working hand in hand with AI to explore ideas, write code, and ship projects faster while learning something new every day.',
-  },
-];
 
 export default function ServicesSection() {
+  const { t } = useLang();
+  const services = t.services.items;
   return (
     <section
       id="services"
@@ -36,19 +17,19 @@ export default function ServicesSection() {
         className="mb-16 text-center font-black uppercase leading-none tracking-tight text-[#0C0C0C] sm:mb-20 md:mb-28"
         style={{ fontSize: 'clamp(3rem, 12vw, 160px)' }}
       >
-        Services
+        {t.services.heading}
       </FadeIn>
 
       <ul className="mx-auto max-w-5xl">
-        {SERVICES.map((service, i) => (
+        {services.map((service, i) => (
           <FadeIn
             as="li"
-            key={service.name}
+            key={i}
             delay={i * 0.1}
             className="flex items-center gap-6 py-8 text-[#0C0C0C] sm:gap-10 sm:py-10 md:gap-14 md:py-12"
             style={{
               borderTop: '1px solid rgba(12, 12, 12, 0.15)',
-              borderBottom: i === SERVICES.length - 1 ? '1px solid rgba(12, 12, 12, 0.15)' : undefined,
+              borderBottom: i === services.length - 1 ? '1px solid rgba(12, 12, 12, 0.15)' : undefined,
             }}
           >
             <span className="shrink-0 font-black leading-none" style={{ fontSize: 'clamp(3rem, 10vw, 140px)', width: '1.3em' }}>

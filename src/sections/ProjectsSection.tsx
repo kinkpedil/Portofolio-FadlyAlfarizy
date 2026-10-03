@@ -2,13 +2,17 @@ import { motion, useScroll, useTransform, type MotionValue } from 'framer-motion
 import { useRef } from 'react';
 import FadeIn from '../components/FadeIn';
 import LiveProjectButton from '../components/LiveProjectButton';
+import { useLang } from '../i18n';
 
 type Project = {
+  /** Key into the translated project copy (category and description). */
+  key: 'frl' | 'zatory' | 'polygrip';
   name: string;
-  category: string;
-  description: string;
   tags: string[];
+  /** External live site. */
   href?: string;
+  /** Page on this site with more about the project, used when there is no live site yet. */
+  detailsHref?: string;
   /** Full-width screenshot. Without one the card shows a styled cover. */
   image?: string;
   /** Gradient for the styled cover shown when there is no screenshot. */
@@ -19,30 +23,25 @@ type Project = {
 
 const PROJECTS: Project[] = [
   {
+    key: 'frl',
     name: 'FRL Broadcast',
-    category: 'Web App',
-    description:
-      'Race control, live timing, and OBS overlays for FR Legends leagues, all from one console, plus an Android driver app.',
     tags: ['Supabase', 'OBS Overlays', 'Android'],
     href: 'https://frlcast.my.id',
     image: '/projects/frl-broadcast.webp',
     cover: 'linear-gradient(135deg, #18011F 0%, #7621B0 55%, #BE4C00 100%)',
   },
   {
+    key: 'zatory',
     name: 'Zatory Racing',
-    category: 'Website',
-    description:
-      'The official website of Zatory Racing Team, a virtual racing team competing in Assetto Corsa and MotoGP, with team news, a gallery, and driver profiles.',
     tags: ['Vite', 'Sim Racing', 'Vercel'],
     href: 'https://zatory-racing-website.vercel.app',
     image: '/projects/zatory-racing.webp',
     cover: 'linear-gradient(135deg, #0C0C0C 0%, #3A0A0A 45%, #D7263D 100%)',
   },
   {
+    key: 'polygrip',
     name: 'PolyGrip',
-    category: 'Game · In Development',
-    description:
-      'An Android racing game with simulation-style car physics and clean low-poly graphics. Currently in development.',
+    detailsHref: '/polygrip/',
     tags: ['Android', 'Car Physics', 'Low Poly'],
     cover: 'linear-gradient(135deg, #04121F 0%, #0B3D5C 50%, #19C3B4 100%)',
     lowPoly: true,
@@ -130,6 +129,8 @@ type ProjectCardProps = {
 };
 
 function ProjectCard({ project, index, total, progress }: ProjectCardProps) {
+  const { t } = useLang();
+  const copy = t.projects[project.key];
   const targetScale = 1 - (total - 1 - index) * 0.03;
   const scale = useTransform(progress, [index / total, 1], [1, targetScale]);
 
@@ -147,21 +148,27 @@ function ProjectCard({ project, index, total, progress }: ProjectCardProps) {
               </span>
               <div className="flex flex-col pb-1 sm:pb-2 md:pb-3">
                 <span className="text-xs font-light uppercase tracking-widest text-[#D7E2EA]/60 sm:text-sm">
-                  {project.category}
+                  {copy.category}
                 </span>
                 <h3 className="font-medium uppercase text-[#D7E2EA]" style={{ fontSize: 'clamp(1rem, 2.2vw, 2.1rem)' }}>
                   {project.name}
                 </h3>
               </div>
             </div>
-            <LiveProjectButton href={project.href} />
+            {project.href ? (
+              <LiveProjectButton href={project.href} label={t.projects.live} />
+            ) : project.detailsHref ? (
+              <LiveProjectButton href={project.detailsHref} label={t.projects.details} external={false} />
+            ) : (
+              <LiveProjectButton label={t.projects.soon} />
+            )}
           </div>
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
             <p
               className="max-w-2xl font-light leading-relaxed text-[#D7E2EA]/70"
               style={{ fontSize: 'clamp(0.85rem, 1.4vw, 1.1rem)' }}
             >
-              {project.description}
+              {copy.description}
             </p>
             <ul className="flex flex-wrap gap-2">
               {project.tags.map((tag) => (
@@ -193,6 +200,7 @@ function ProjectCard({ project, index, total, progress }: ProjectCardProps) {
 }
 
 export default function ProjectsSection() {
+  const { t } = useLang();
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -211,7 +219,7 @@ export default function ProjectsSection() {
         className="hero-heading mb-16 text-center font-black uppercase leading-none tracking-tight sm:mb-20 md:mb-28"
         style={{ fontSize: 'clamp(3rem, 12vw, 160px)' }}
       >
-        Project
+        {t.projects.heading}
       </FadeIn>
 
       <div ref={containerRef} className="relative mx-auto max-w-6xl">

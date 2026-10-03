@@ -1,6 +1,7 @@
 import { ArrowUpRight, Check, Copy, Instagram, Youtube, type LucideIcon } from 'lucide-react';
 import { useState, type CSSProperties, type SVGProps } from 'react';
 import FadeIn from '../components/FadeIn';
+import { useLang } from '../i18n';
 
 function DiscordIcon(props: SVGProps<SVGSVGElement>) {
   return (
@@ -47,6 +48,7 @@ const ROW_CLASS =
 const ACTION_ICON_STYLE = { width: 'clamp(2rem, 5vw, 4rem)', height: 'clamp(2rem, 5vw, 4rem)' };
 
 function ContactRow({ contact }: { contact: Contact }) {
+  const { t } = useLang();
   const [copied, setCopied] = useState(false);
   const Icon = contact.icon;
 
@@ -63,7 +65,7 @@ function ContactRow({ contact }: { contact: Contact }) {
           {contact.name}
         </span>
         <span className="truncate font-light text-[#0C0C0C]/60" style={{ fontSize: 'clamp(0.85rem, 1.6vw, 1.25rem)' }}>
-          {copied ? 'Copied!' : contact.handle}
+          {copied ? t.contact.copied : contact.handle}
         </span>
       </span>
       {contact.href ? (
@@ -106,7 +108,7 @@ function ContactRow({ contact }: { contact: Contact }) {
       onClick={handleCopy}
       className={ROW_CLASS}
       style={style}
-      aria-label={`Copy ${contact.name} username ${contact.handle}`}
+      aria-label={t.contact.copyLabel(contact.name, contact.handle)}
     >
       {content}
     </button>
@@ -114,6 +116,7 @@ function ContactRow({ contact }: { contact: Contact }) {
 }
 
 export default function ContactSection() {
+  const { t } = useLang();
   return (
     <section
       id="contact"
@@ -126,7 +129,7 @@ export default function ContactSection() {
         className="text-center font-black uppercase leading-none tracking-tight text-[#0C0C0C]"
         style={{ fontSize: 'clamp(3rem, 12vw, 160px)' }}
       >
-        Contact me
+        {t.contact.heading}
       </FadeIn>
       <FadeIn
         as="p"
@@ -134,7 +137,7 @@ export default function ContactSection() {
         className="mx-auto mb-16 mt-6 max-w-[520px] text-center font-light leading-relaxed text-[#0C0C0C] sm:mb-20 md:mb-24"
         style={{ fontSize: 'clamp(0.95rem, 1.6vw, 1.25rem)', opacity: 0.6 }}
       >
-        Have a project in mind or just want to say hi? Reach me on any of these platforms.
+        {t.contact.intro}
       </FadeIn>
 
       <ul className="mx-auto w-full max-w-5xl">
@@ -156,7 +159,7 @@ export default function ContactSection() {
       <footer className="mx-auto mt-auto flex w-full max-w-5xl items-center justify-between pt-20 text-xs font-light uppercase tracking-widest text-[#0C0C0C]/60 sm:text-sm">
         <span>© {new Date().getFullYear()} Fadly Alfarizy</span>
         <a href="#" className="transition-opacity duration-200 hover:opacity-70">
-          Back to top ↑
+          {t.contact.backToTop}
         </a>
       </footer>
     </section>
