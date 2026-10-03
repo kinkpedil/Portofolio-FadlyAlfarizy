@@ -3,11 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fadly Alfarizy -- Web &amp; Game Developer</title>
+    <title>Portofolio Fadly Alfarizy — Web &amp; Game Developer</title>
     <meta
       name="description"
-      content="Portfolio of Fadly Alfarizy, a web developer and aspiring indie game developer building with AI. Projects include FRL Broadcast, Zatory Racing, and PolyGrip."
+      content="Portofolio Fadly Alfarizy, web developer &amp; aspiring indie game developer. Lihat proyek web dan game Fadly: FRL Broadcast, Zatory Racing, dan PolyGrip."
     />
+    <link rel="canonical" href="https://fadlyalfarizy.my.id/" />
+    <meta name="author" content="Fadly Alfarizy" />
     <meta name="theme-color" content="#0C0C0C" />
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" type="image/png" href="/icon-192.png" sizes="192x192" />
@@ -28,6 +30,42 @@
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Hi, I'm Fadly: web developer and aspiring indie game dev" />
     <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Structured data: tells search engines this is Fadly Alfarizy's profile site and which accounts are his. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://fadlyalfarizy.my.id/#website",
+            "url": "https://fadlyalfarizy.my.id/",
+            "name": "Fadly Alfarizy",
+            "alternateName": ["Portofolio Fadly Alfarizy", "Fadly Alfarizy Portfolio"],
+            "inLanguage": ["en", "id"]
+          },
+          {
+            "@type": "ProfilePage",
+            "@id": "https://fadlyalfarizy.my.id/#profile",
+            "url": "https://fadlyalfarizy.my.id/",
+            "name": "Portofolio Fadly Alfarizy",
+            "isPartOf": { "@id": "https://fadlyalfarizy.my.id/#website" },
+            "mainEntity": { "@id": "https://fadlyalfarizy.my.id/#person" }
+          },
+          {
+            "@type": "Person",
+            "@id": "https://fadlyalfarizy.my.id/#person",
+            "name": "Fadly Alfarizy",
+            "url": "https://fadlyalfarizy.my.id/",
+            "image": "https://fadlyalfarizy.my.id/icon-512.png",
+            "jobTitle": "Web Developer",
+            "description": "Web developer and aspiring indie game developer building with AI.",
+            "knowsAbout": ["Web Development", "Game Development", "React", "TypeScript", "Tailwind CSS"],
+            "sameAs": ["https://www.instagram.com/pdly25_/", "https://www.youtube.com/@kinkpedil12"]
+          }
+        ]
+      }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

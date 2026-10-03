@@ -35,6 +35,8 @@ export default function HeroSection() {
         <h1
           className={`hero-heading mt-6 w-full whitespace-nowrap text-center font-black uppercase leading-none tracking-tight sm:mt-4 md:-mt-5 ${t.hero.headingSize}`}
         >
+          {/* The visible greeting only says "Fadly"; give search engines and screen readers the full name. */}
+          <span className="sr-only">Fadly Alfarizy: </span>
           {t.hero.heading}
         </h1>
       </FadeIn>
