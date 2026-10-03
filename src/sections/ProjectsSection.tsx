@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform, type MotionValue } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import FadeIn from '../components/FadeIn';
 import LiveProjectButton from '../components/LiveProjectButton';
 
@@ -9,11 +9,9 @@ type Project = {
   description: string;
   tags: string[];
   href?: string;
-  /** Three screenshots: left-top, left-bottom, right. */
-  images?: [string, string, string];
-  /** A single full-width screenshot, for projects with one. Without any image the card shows a styled cover. */
+  /** Full-width screenshot. Without one the card shows a styled cover. */
   image?: string;
-  /** Gradient used for the cover, and as the fallback if a screenshot fails to load. */
+  /** Gradient for the styled cover shown when there is no screenshot. */
   cover: string;
 };
 
@@ -22,14 +20,10 @@ const PROJECTS: Project[] = [
     name: 'FRL Broadcast',
     category: 'Web App',
     description:
-      'A broadcast toolkit for FR Legends racing leagues, with OBS overlays, live timing, drift judging, and an Android driver app.',
+      'Race control, live timing, and OBS overlays for FR Legends leagues, all from one console, plus an Android driver app.',
     tags: ['Supabase', 'OBS Overlays', 'Android'],
     href: 'https://frlcast.my.id',
-    images: [
-      'https://frlcast.my.id/shots/dashboard.png',
-      'https://frlcast.my.id/shots/overlay.png',
-      'https://frlcast.my.id/shots/driver.png',
-    ],
+    image: '/projects/frl-broadcast.webp',
     cover: 'linear-gradient(135deg, #18011F 0%, #7621B0 55%, #BE4C00 100%)',
   },
   {
@@ -52,29 +46,8 @@ const PROJECTS: Project[] = [
 ];
 
 const RADIUS = 'rounded-[40px] sm:rounded-[50px] md:rounded-[60px]';
-const TOP_IMAGE_HEIGHT = 'clamp(130px, 16vw, 230px)';
-const BOTTOM_IMAGE_HEIGHT = 'clamp(160px, 22vw, 340px)';
-// Single images and covers match the height of the three-image grid so stacked cards line up.
-const FULL_MEDIA_HEIGHT = `calc(${TOP_IMAGE_HEIGHT} + ${BOTTOM_IMAGE_HEIGHT} + 1rem)`;
-
-function Shot({ src, alt, cover, height }: { src: string; alt: string; cover: string; height?: string }) {
-  const [failed, setFailed] = useState(false);
-
-  if (failed) {
-    return <div className={`w-full ${RADIUS} ${height ? '' : 'h-full'}`} style={{ background: cover, height }} />;
-  }
-
-  return (
-    <img
-      src={src}
-      alt={alt}
-      loading="lazy"
-      onError={() => setFailed(true)}
-      className={`w-full object-cover object-top ${RADIUS} ${height ? '' : 'h-full'}`}
-      style={{ height, background: cover }}
-    />
-  );
-}
+// Screenshots and covers share one height so the stacked cards line up.
+const MEDIA_HEIGHT = 'calc(clamp(130px, 16vw, 230px) + clamp(160px, 22vw, 340px) + 1rem)';
 
 function Cover({ project }: { project: Project }) {
   return (
@@ -82,7 +55,7 @@ function Cover({ project }: { project: Project }) {
       className={`relative flex w-full items-center justify-center overflow-hidden ${RADIUS}`}
       style={{
         background: project.cover,
-        height: FULL_MEDIA_HEIGHT,
+        height: MEDIA_HEIGHT,
       }}
     >
       <span
@@ -150,23 +123,13 @@ function ProjectCard({ project, index, total, progress }: ProjectCardProps) {
           </div>
         </div>
 
-        {project.images ? (
-          <div className="flex gap-3 sm:gap-4">
-            <div className="flex w-[40%] flex-col gap-3 sm:gap-4">
-              <Shot src={project.images[0]} alt={`${project.name} screenshot 1`} cover={project.cover} height={TOP_IMAGE_HEIGHT} />
-              <Shot src={project.images[1]} alt={`${project.name} screenshot 2`} cover={project.cover} height={BOTTOM_IMAGE_HEIGHT} />
-            </div>
-            <div className="w-[60%]">
-              <Shot src={project.images[2]} alt={`${project.name} screenshot 3`} cover={project.cover} />
-            </div>
-          </div>
-        ) : project.image ? (
+        {project.image ? (
           <img
             src={project.image}
             alt={`${project.name} screenshot`}
             loading="lazy"
-            className={`w-full object-cover object-top ${RADIUS}`}
-            style={{ height: FULL_MEDIA_HEIGHT, background: project.cover }}
+            className={`w-full border border-[#D7E2EA]/15 object-cover object-top ${RADIUS}`}
+            style={{ height: MEDIA_HEIGHT }}
           />
         ) : (
           <Cover project={project} />
