@@ -2,7 +2,6 @@ import { motion, useScroll, useTransform, type MotionValue } from 'framer-motion
 import { useRef } from 'react';
 import FadeIn from '../components/FadeIn';
 import LiveProjectButton from '../components/LiveProjectButton';
-import LowPolyPattern from '../components/LowPolyPattern';
 import { useLang } from '../i18n';
 
 type Project = {
@@ -14,12 +13,8 @@ type Project = {
   href?: string;
   /** Page on this site with more about the project, used when there is no live site yet. */
   detailsHref?: string;
-  /** Full-width screenshot. Without one the card shows a styled cover. */
-  image?: string;
-  /** Gradient for the styled cover shown when there is no screenshot. */
-  cover: string;
-  /** Overlay the cover with a faceted low-poly pattern. */
-  lowPoly?: boolean;
+  /** Full-width screenshot. */
+  image: string;
 };
 
 const PROJECTS: Project[] = [
@@ -29,7 +24,6 @@ const PROJECTS: Project[] = [
     tags: ['Supabase', 'OBS Overlays', 'Android'],
     href: 'https://frlcast.my.id',
     image: '/projects/frl-broadcast.webp',
-    cover: 'linear-gradient(135deg, #18011F 0%, #7621B0 55%, #BE4C00 100%)',
   },
   {
     key: 'zatory',
@@ -37,42 +31,19 @@ const PROJECTS: Project[] = [
     tags: ['Vite', 'Sim Racing', 'Vercel'],
     href: 'https://zatory-racing-website.vercel.app',
     image: '/projects/zatory-racing.webp',
-    cover: 'linear-gradient(135deg, #0C0C0C 0%, #3A0A0A 45%, #D7263D 100%)',
   },
   {
     key: 'polygrip',
     name: 'PolyGrip',
     detailsHref: '/polygrip/',
-    tags: ['Android', 'Car Physics', 'Low Poly'],
-    cover: 'linear-gradient(135deg, #04121F 0%, #0B3D5C 50%, #19C3B4 100%)',
-    lowPoly: true,
+    tags: ['Unity', 'Android', 'Car Physics', 'Low Poly'],
+    image: '/projects/polygrip-car.webp',
   },
 ];
 
 const RADIUS = 'rounded-[40px] sm:rounded-[50px] md:rounded-[60px]';
-// Screenshots and covers share one height so the stacked cards line up.
+// Every card's screenshot shares one height so the stacked cards line up.
 const MEDIA_HEIGHT = 'calc(clamp(130px, 16vw, 230px) + clamp(160px, 22vw, 340px) + 1rem)';
-
-function Cover({ project }: { project: Project }) {
-  return (
-    <div
-      className={`relative flex w-full items-center justify-center overflow-hidden ${RADIUS}`}
-      style={{
-        background: project.cover,
-        height: MEDIA_HEIGHT,
-      }}
-    >
-      {project.lowPoly && <LowPolyPattern />}
-      <span
-        aria-hidden="true"
-        className="relative select-none px-6 text-center font-black uppercase leading-[0.9] tracking-tight"
-        style={{ fontSize: 'clamp(2.5rem, 10vw, 150px)', color: 'transparent', WebkitTextStroke: '2px rgba(215, 226, 234, 0.85)' }}
-      >
-        {project.name}
-      </span>
-    </div>
-  );
-}
 
 type ProjectCardProps = {
   project: Project;
@@ -136,17 +107,13 @@ function ProjectCard({ project, index, total, progress }: ProjectCardProps) {
           </div>
         </div>
 
-        {project.image ? (
-          <img
-            src={project.image}
-            alt={`${project.name} screenshot`}
-            loading="lazy"
-            className={`w-full border border-[#D7E2EA]/15 object-cover object-top ${RADIUS}`}
-            style={{ height: MEDIA_HEIGHT }}
-          />
-        ) : (
-          <Cover project={project} />
-        )}
+        <img
+          src={project.image}
+          alt={`${project.name} screenshot`}
+          loading="lazy"
+          className={`w-full border border-[#D7E2EA]/15 object-cover object-top ${RADIUS}`}
+          style={{ height: MEDIA_HEIGHT }}
+        />
       </motion.article>
     </div>
   );

@@ -46,6 +46,9 @@ type Dictionary = {
     status: string;
     tagline: string;
     featuresHeading: string;
+    demoHeading: string;
+    demoCaption: string;
+    modelCaption: string;
     features: { title: string; description: string }[];
     followHeading: string;
     followText: string;
@@ -148,6 +151,10 @@ const en: Dictionary = {
         description: 'Made to be played on Android phones.',
       },
     ],
+    demoHeading: 'Early demo',
+    demoCaption:
+      'An early test drive of the F1 car: cockpit and chase cameras, on-screen touch controls for gas, brake, handbrake and gear shifts, automatic gears, DRS, and tire temperature and wear, at speeds close to 300 km/h.',
+    modelCaption: 'The F1 car model in the editor.',
     followHeading: 'Follow the progress',
     followText: 'PolyGrip is still being built. Follow along for updates as it takes shape.',
   },
@@ -253,6 +260,10 @@ const id: Dictionary = {
         description: 'Dibuat untuk dimainkan di HP Android.',
       },
     ],
+    demoHeading: 'Demo awal',
+    demoCaption:
+      'Uji coba awal mobil F1: kamera kokpit dan kamera belakang, kontrol layar sentuh untuk gas, rem, rem tangan, dan pindah gigi, gigi otomatis, DRS, serta suhu dan keausan ban, dengan kecepatan mendekati 300 km/h.',
+    modelCaption: 'Model mobil F1 di editor.',
     followHeading: 'Ikuti perkembangannya',
     followText: 'PolyGrip masih dalam tahap pembuatan. Ikuti terus untuk kabar terbaru seiring game ini terbentuk.',
   },

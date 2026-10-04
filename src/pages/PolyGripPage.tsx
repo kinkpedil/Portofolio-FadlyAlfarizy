@@ -65,6 +65,46 @@ export default function PolyGripPage() {
         </div>
       </section>
 
+      <section className="px-5 pt-20 sm:px-8 sm:pt-24 md:px-10 md:pt-32">
+        <FadeIn
+          as="h2"
+          y={40}
+          className="hero-heading mb-10 text-center font-black uppercase leading-none tracking-tight sm:mb-14"
+          style={{ fontSize: 'clamp(2.5rem, 9vw, 120px)' }}
+        >
+          {copy.demoHeading}
+        </FadeIn>
+        <div className="mx-auto flex max-w-5xl flex-col gap-10 sm:gap-14">
+          <FadeIn as="figure" className="flex flex-col gap-4">
+            <video
+              src="/polygrip/demo.mp4"
+              poster="/polygrip/demo-poster.webp"
+              controls
+              playsInline
+              preload="metadata"
+              className="aspect-video w-full rounded-[24px] border border-[#D7E2EA]/15 bg-black sm:rounded-[32px]"
+            />
+            <figcaption
+              className="mx-auto max-w-3xl text-center font-light leading-relaxed text-[#D7E2EA]/70"
+              style={{ fontSize: 'clamp(0.9rem, 1.3vw, 1.1rem)' }}
+            >
+              {copy.demoCaption}
+            </figcaption>
+          </FadeIn>
+          <FadeIn as="figure" delay={0.1} className="flex flex-col gap-4">
+            <img
+              src="/projects/polygrip-car.webp"
+              alt={copy.modelCaption}
+              loading="lazy"
+              className="w-full rounded-[24px] border border-[#D7E2EA]/15 sm:rounded-[32px]"
+            />
+            <figcaption className="text-center text-sm font-light uppercase tracking-widest text-[#D7E2EA]/60">
+              {copy.modelCaption}
+            </figcaption>
+          </FadeIn>
+        </div>
+      </section>
+
       <section className="px-5 py-20 sm:px-8 sm:py-24 md:px-10 md:py-32">
         <FadeIn
           as="h2"
