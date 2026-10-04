@@ -48,7 +48,8 @@ type Dictionary = {
     featuresHeading: string;
     demoHeading: string;
     demoCaption: string;
-    modelCaption: string;
+    galleryCaption: string;
+    gallery: { front: string; rear: string; side: string; cockpit: string };
     features: { title: string; description: string }[];
     followHeading: string;
     followText: string;
@@ -154,7 +155,8 @@ const en: Dictionary = {
     demoHeading: 'Early demo',
     demoCaption:
       'An early test drive of the F1 car: cockpit and chase cameras, on-screen touch controls for gas, brake, handbrake and gear shifts, automatic gears, DRS, and tire temperature and wear, at speeds close to 300 km/h.',
-    modelCaption: 'The F1 car model in the editor.',
+    galleryCaption: 'The F1 car model',
+    gallery: { front: 'Front', rear: 'Rear', side: 'Side', cockpit: 'Cockpit' },
     followHeading: 'Follow the progress',
     followText: 'PolyGrip is still being built. Follow along for updates as it takes shape.',
   },
@@ -263,7 +265,8 @@ const id: Dictionary = {
     demoHeading: 'Demo awal',
     demoCaption:
       'Uji coba awal mobil F1: kamera kokpit dan kamera belakang, kontrol layar sentuh untuk gas, rem, rem tangan, dan pindah gigi, gigi otomatis, DRS, serta suhu dan keausan ban, dengan kecepatan mendekati 300 km/h.',
-    modelCaption: 'Model mobil F1 di editor.',
+    galleryCaption: 'Model mobil F1',
+    gallery: { front: 'Depan', rear: 'Belakang', side: 'Samping', cockpit: 'Kokpit' },
     followHeading: 'Ikuti perkembangannya',
     followText: 'PolyGrip masih dalam tahap pembuatan. Ikuti terus untuk kabar terbaru seiring game ini terbentuk.',
   },

@@ -38,7 +38,7 @@ const PROJECTS: Project[] = [
     name: 'PolyGrip',
     detailsHref: '/polygrip/',
     tags: ['Unity', 'Android', 'Car Physics', 'Low Poly'],
-    image: '/projects/polygrip-car.webp',
+    image: '/polygrip/gallery/front.webp',
   },
 ];
 
