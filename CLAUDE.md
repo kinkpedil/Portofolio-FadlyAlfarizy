@@ -15,7 +15,7 @@ Vite + React + TypeScript + Tailwind CSS + Framer Motion. The owner prefers repl
 ## Content rules
 
 - Never use an em dash or en dash anywhere (page text, titles, meta tags, manifest, README, CV,
-  code comments), and no ` -- ` used as a dash either. Use `|`, `:`, commas or full stops instead.
+  code comments), and no double hyphen used as a dash either. Use `|`, `:`, commas or full stops instead.
   Check with a search for U+2013 and U+2014 before committing.
 - All visible copy lives in `src/i18n.tsx` with an English (`en`) and Indonesian (`id`) version.
   Every new string needs both.
