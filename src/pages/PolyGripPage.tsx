@@ -2,6 +2,7 @@ import { Gauge, Instagram, Shapes, Smartphone, Youtube } from 'lucide-react';
 import FadeIn from '../components/FadeIn';
 import LanguageToggle from '../components/LanguageToggle';
 import LowPolyPattern from '../components/LowPolyPattern';
+import ProtectedImage, { blockSave, NO_SAVE_STYLE } from '../components/ProtectedImage';
 import { useLang } from '../i18n';
 
 const COVER = 'linear-gradient(135deg, #04121F 0%, #0B3D5C 50%, #19C3B4 100%)';
@@ -76,13 +77,20 @@ export default function PolyGripPage() {
         </FadeIn>
         <div className="mx-auto flex max-w-5xl flex-col gap-10 sm:gap-14">
           <FadeIn as="figure" className="flex flex-col gap-4">
+            {/* controlsList removes the download button from the player menu; the handlers block "Save video as". */}
             <video
               src="/polygrip/demo.mp4"
               poster="/polygrip/demo-poster.webp"
               controls
+              controlsList="nodownload noremoteplayback"
+              disablePictureInPicture
+              disableRemotePlayback
               playsInline
               preload="metadata"
+              onContextMenu={blockSave}
+              onDragStart={blockSave}
               className="aspect-video w-full rounded-[24px] border border-[#D7E2EA]/15 bg-black sm:rounded-[32px]"
+              style={NO_SAVE_STYLE}
             />
             <figcaption
               className="mx-auto max-w-3xl text-center font-light leading-relaxed text-[#D7E2EA]/70"
@@ -92,10 +100,11 @@ export default function PolyGripPage() {
             </figcaption>
           </FadeIn>
           <FadeIn as="figure" delay={0.1} className="flex flex-col gap-4">
-            <img
+            <ProtectedImage
               src="/projects/polygrip-car.webp"
               alt={copy.modelCaption}
-              loading="lazy"
+              aspectRatio={1600 / 708}
+              fit="cover"
               className="w-full rounded-[24px] border border-[#D7E2EA]/15 sm:rounded-[32px]"
             />
             <figcaption className="text-center text-sm font-light uppercase tracking-widest text-[#D7E2EA]/60">

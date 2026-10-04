@@ -2,6 +2,7 @@ import { motion, useScroll, useTransform, type MotionValue } from 'framer-motion
 import { useRef } from 'react';
 import FadeIn from '../components/FadeIn';
 import LiveProjectButton from '../components/LiveProjectButton';
+import ProtectedImage from '../components/ProtectedImage';
 import { useLang } from '../i18n';
 
 type Project = {
@@ -107,11 +108,12 @@ function ProjectCard({ project, index, total, progress }: ProjectCardProps) {
           </div>
         </div>
 
-        <img
+        <ProtectedImage
           src={project.image}
           alt={`${project.name} screenshot`}
-          loading="lazy"
-          className={`w-full border border-[#D7E2EA]/15 object-cover object-top ${RADIUS}`}
+          fit="cover"
+          position="top"
+          className={`w-full border border-[#D7E2EA]/15 ${RADIUS}`}
           style={{ height: MEDIA_HEIGHT }}
         />
       </motion.article>
