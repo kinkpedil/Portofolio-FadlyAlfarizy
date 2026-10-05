@@ -7,7 +7,8 @@ import { useLang } from '../i18n';
 
 const COVER = 'linear-gradient(135deg, #04121F 0%, #0B3D5C 50%, #19C3B4 100%)';
 const FEATURE_ICONS = [Gauge, Shapes, Smartphone];
-const GALLERY = ['front', 'rear', 'side', 'cockpit'] as const;
+const CARS = ['f1', 'hypercar'] as const;
+const VIEWS = ['front', 'rear', 'side', 'cockpit'] as const;
 const FOLLOW_LINKS = [
   { name: 'YouTube', handle: '@kinkpedil12', href: 'https://www.youtube.com/@kinkpedil12', icon: Youtube },
   { name: 'Instagram', handle: '@pdly25_', href: 'https://www.instagram.com/pdly25_/', icon: Instagram },
@@ -100,27 +101,33 @@ export default function PolyGripPage() {
               {copy.demoCaption}
             </figcaption>
           </FadeIn>
-          <figure className="flex flex-col gap-4">
-            <ul className="grid gap-3 sm:grid-cols-2 sm:gap-4">
-              {GALLERY.map((view, i) => (
-                <FadeIn as="li" key={view} delay={i * 0.08} className="relative">
-                  <ProtectedImage
-                    src={`/polygrip/gallery/${view}.webp`}
-                    alt={`${copy.galleryCaption}: ${copy.gallery[view]}`}
-                    aspectRatio={16 / 10}
-                    fit="cover"
-                    className="w-full rounded-[24px] border border-[#D7E2EA]/15 sm:rounded-[28px]"
-                  />
-                  <span className="absolute bottom-3 left-3 rounded-full bg-[#0C0C0C]/70 px-3 py-1 text-[0.7rem] uppercase tracking-widest text-[#D7E2EA] sm:bottom-4 sm:left-4 sm:text-xs">
-                    {copy.gallery[view]}
-                  </span>
-                </FadeIn>
-              ))}
-            </ul>
-            <figcaption className="text-center text-sm font-light uppercase tracking-widest text-[#D7E2EA]/60">
-              {copy.galleryCaption}
-            </figcaption>
-          </figure>
+          {CARS.map((car) => (
+            <figure key={car} className="flex flex-col gap-4">
+              <FadeIn
+                as="figcaption"
+                className="text-center font-black uppercase leading-none tracking-tight text-[#D7E2EA]"
+                style={{ fontSize: 'clamp(1.5rem, 4vw, 3rem)' }}
+              >
+                {copy.cars[car]}
+              </FadeIn>
+              <ul className="grid gap-3 sm:grid-cols-2 sm:gap-4">
+                {VIEWS.map((view, i) => (
+                  <FadeIn as="li" key={view} delay={i * 0.08} className="relative">
+                    <ProtectedImage
+                      src={`/polygrip/gallery/${car}/${view}.webp`}
+                      alt={`${copy.cars[car]}: ${copy.gallery[view]}`}
+                      aspectRatio={16 / 10}
+                      fit="cover"
+                      className="w-full rounded-[24px] border border-[#D7E2EA]/15 sm:rounded-[28px]"
+                    />
+                    <span className="absolute bottom-3 left-3 rounded-full bg-[#0C0C0C]/70 px-3 py-1 text-[0.7rem] uppercase tracking-widest text-[#D7E2EA] sm:bottom-4 sm:left-4 sm:text-xs">
+                      {copy.gallery[view]}
+                    </span>
+                  </FadeIn>
+                ))}
+              </ul>
+            </figure>
+          ))}
         </div>
       </section>
 

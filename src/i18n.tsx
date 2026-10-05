@@ -48,7 +48,7 @@ type Dictionary = {
     featuresHeading: string;
     demoHeading: string;
     demoCaption: string;
-    galleryCaption: string;
+    cars: { f1: string; hypercar: string };
     gallery: { front: string; rear: string; side: string; cockpit: string };
     features: { title: string; description: string }[];
     followHeading: string;
@@ -113,7 +113,7 @@ const en: Dictionary = {
     polygrip: {
       category: 'Game · In Development',
       description:
-        'An Android racing game with simulation-style car physics and clean low-poly graphics. Currently in development.',
+        'An Android racing game with simulation-style car physics and clean low-poly graphics, with an F1 car and a Hypercar so far. Currently in development.',
     },
   },
   contact: {
@@ -155,7 +155,7 @@ const en: Dictionary = {
     demoHeading: 'Early demo',
     demoCaption:
       'An early test drive of the F1 car: cockpit and chase cameras, on-screen touch controls for gas, brake, handbrake and gear shifts, automatic gears, DRS, and tire temperature and wear, at speeds close to 300 km/h.',
-    galleryCaption: 'The F1 car model',
+    cars: { f1: 'F1 car', hypercar: 'Hypercar' },
     gallery: { front: 'Front', rear: 'Rear', side: 'Side', cockpit: 'Cockpit' },
     followHeading: 'Follow the progress',
     followText: 'PolyGrip is still being built. Follow along for updates as it takes shape.',
@@ -223,7 +223,7 @@ const id: Dictionary = {
     polygrip: {
       category: 'Game · Dalam Pengembangan',
       description:
-        'Game balap mobil untuk Android dengan fisika ala simulasi dan grafis low poly yang bersih. Masih dalam pengembangan.',
+        'Game balap mobil untuk Android dengan fisika ala simulasi dan grafis low poly yang bersih, sejauh ini dengan mobil F1 dan Hypercar. Masih dalam pengembangan.',
     },
   },
   contact: {
@@ -265,7 +265,7 @@ const id: Dictionary = {
     demoHeading: 'Demo awal',
     demoCaption:
       'Uji coba awal mobil F1: kamera kokpit dan kamera belakang, kontrol layar sentuh untuk gas, rem, rem tangan, dan pindah gigi, gigi otomatis, DRS, serta suhu dan keausan ban, dengan kecepatan mendekati 300 km/h.',
-    galleryCaption: 'Model mobil F1',
+    cars: { f1: 'Mobil F1', hypercar: 'Hypercar' },
     gallery: { front: 'Depan', rear: 'Belakang', side: 'Samping', cockpit: 'Kokpit' },
     followHeading: 'Ikuti perkembangannya',
     followText: 'PolyGrip masih dalam tahap pembuatan. Ikuti terus untuk kabar terbaru seiring game ini terbentuk.',
