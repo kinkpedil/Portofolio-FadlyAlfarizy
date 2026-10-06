@@ -7,7 +7,7 @@ import { useLang } from '../i18n';
 
 const COVER = 'linear-gradient(135deg, #04121F 0%, #0B3D5C 50%, #19C3B4 100%)';
 const FEATURE_ICONS = [Gauge, Shapes, Smartphone];
-const CARS = ['f1', 'hypercar'] as const;
+const CARS = ['f1', 'hypercar', 'gt'] as const;
 const VIEWS = ['front', 'rear', 'side', 'cockpit'] as const;
 const FOLLOW_LINKS = [
   { name: 'YouTube', handle: '@kinkpedil12', href: 'https://www.youtube.com/@kinkpedil12', icon: Youtube },
